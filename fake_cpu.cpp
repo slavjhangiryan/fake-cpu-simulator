@@ -345,7 +345,7 @@ int FakeCPU::JE(const std::vector<std::string>& args) {
         exit(1);
     }
 
-    if(!zf.read()) {
+    if(zf.read()) {
         eip.write(labels[labelName]);
         return 1;
     }
@@ -387,7 +387,7 @@ int FakeCPU::JLE(const std::vector<std::string>& args) {
         exit(1);
     }
 
-    if(sf.read() && zf.read()) {
+    if(sf.read() || zf.read()) {
         eip.write(labels[labelName]);
         return 1;
     }
@@ -428,7 +428,7 @@ int FakeCPU::JGE(const std::vector<std::string>& args) {
         exit(1);
     }
 
-    if(!sf.read() && zf.read()) {
+    if(!sf.read() || zf.read()) {
         eip.write(labels[labelName]);
         return 1;
     }
